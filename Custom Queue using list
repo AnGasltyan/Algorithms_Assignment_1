@@ -1,0 +1,69 @@
+using System;
+using System.Collections.Generic;
+
+class CustomQueue<T>
+{
+    private List<T> _queue;
+
+    public CustomQueue()
+    {
+        _queue = new List<T>();
+    }
+
+    public void Enqueue(T item)
+    {
+        _queue.Add(item);
+    }
+
+    public T Dequeue()
+    {
+        if (IsEmpty())
+        {
+            throw new InvalidOperationException("Queue is empty.");
+        }
+
+        T frontItem = _queue[0];
+        _queue.RemoveAt(0);
+        return frontItem;
+    }
+
+    public T Peek()
+    {
+        if (IsEmpty())
+        {
+            throw new InvalidOperationException("Queue is empty.");
+        }
+
+        return _queue[0];
+    }
+
+    public bool IsEmpty()
+    {
+        return _queue.Count == 0;
+    }
+
+    public int Count()
+    {
+        return _queue.Count;
+    }
+}
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        CustomQueue<int> queue = new CustomQueue<int>();
+
+        queue.Enqueue(10);
+        queue.Enqueue(20);
+        queue.Enqueue(30);
+
+        Console.WriteLine("Front element is: " + queue.Peek());
+        Console.WriteLine("Dequeue element: " + queue.Dequeue());
+        Console.WriteLine("Dequeue element: " + queue.Dequeue());
+        Console.WriteLine("Front element is: " + queue.Peek());
+        Console.WriteLine("Queue count: " + queue.Count());
+        queue.Dequeue();
+        Console.WriteLine("Is queue empty? " + queue.IsEmpty());
+    }
+}
